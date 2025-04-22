@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Activation - License Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        .feature-card {
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">License Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/license-types">License Types</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/license-activation">License Activation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <h1 class="display-4">License Activation</h1>
+                <p class="lead">Activate and manage your software licenses.</p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h3>Activate License</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="activateLicenseForm">
+                            <div class="mb-3">
+                                <label for="license_key" class="form-label">License Key</label>
+                                <input type="text" class="form-control" id="license_key" name="license_key" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hardware_id" class="form-label">Hardware ID</label>
+                                <input type="text" class="form-control" id="hardware_id" name="hardware_id" required>
+                                <div class="form-text">Unique identifier for the device where the license will be activated.</div>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="activateLicenseBtn">Activate License</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h3>Check License</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="checkLicenseForm">
+                            <div class="mb-3">
+                                <label for="check_license_key" class="form-label">License Key</label>
+                                <input type="text" class="form-control" id="check_license_key" name="check_license_key" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="check_hardware_id" class="form-label">Hardware ID</label>
+                                <input type="text" class="form-control" id="check_hardware_id" name="check_hardware_id" required>
+                            </div>
+                            <button type="button" class="btn btn-info" id="checkLicenseBtn">Check License</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Deactivate License</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="deactivateLicenseForm">
+                            <div class="mb-3">
+                                <label for="deactivate_license_key" class="form-label">License Key</label>
+                                <input type="text" class="form-control" id="deactivate_license_key" name="deactivate_license_key" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="deactivate_hardware_id" class="form-label">Hardware ID</label>
+                                <input type="text" class="form-control" id="deactivate_hardware_id" name="deactivate_hardware_id" required>
+                            </div>
+                            <button type="button" class="btn btn-danger" id="deactivateLicenseBtn">Deactivate License</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>License Status</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="licenseStatus" class="alert alert-info d-none">
+                            <!-- License status will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-3">
+        <div class="container text-center">
+            <p>&copy; 2023 License Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Activate License
+        document.getElementById('activateLicenseBtn').addEventListener('click', function() {
+            const licenseKey = document.getElementById('license_key').value;
+            const hardwareId = document.getElementById('hardware_id').value;
+            
+            if (!licenseKey || !hardwareId) {
+                alert('Please enter both license key and hardware ID');
+                return;
+            }
+            
+            // Here you would typically send the data to your API
+            const statusDiv = document.getElementById('licenseStatus');
+            statusDiv.classList.remove('d-none', 'alert-success', 'alert-danger');
+            statusDiv.classList.add('alert-success');
+            statusDiv.innerHTML = `<strong>Success!</strong> License ${licenseKey} has been activated for hardware ID ${hardwareId}.`;
+        });
+        
+        // Check License
+        document.getElementById('checkLicenseBtn').addEventListener('click', function() {
+            const licenseKey = document.getElementById('check_license_key').value;
+            const hardwareId = document.getElementById('check_hardware_id').value;
+            
+            if (!licenseKey || !hardwareId) {
+                alert('Please enter both license key and hardware ID');
+                return;
+            }
+            
+            // Here you would typically send the data to your API
+            const statusDiv = document.getElementById('licenseStatus');
+            statusDiv.classList.remove('d-none', 'alert-success', 'alert-danger');
+            statusDiv.classList.add('alert-info');
+            statusDiv.innerHTML = `<strong>License Status:</strong> License ${licenseKey} is valid for hardware ID ${hardwareId}.`;
+        });
+        
+        // Deactivate License
+        document.getElementById('deactivateLicenseBtn').addEventListener('click', function() {
+            const licenseKey = document.getElementById('deactivate_license_key').value;
+            const hardwareId = document.getElementById('deactivate_hardware_id').value;
+            
+            if (!licenseKey || !hardwareId) {
+                alert('Please enter both license key and hardware ID');
+                return;
+            }
+            
+            // Here you would typically send the data to your API
+            const statusDiv = document.getElementById('licenseStatus');
+            statusDiv.classList.remove('d-none', 'alert-success', 'alert-danger');
+            statusDiv.classList.add('alert-warning');
+            statusDiv.innerHTML = `<strong>Success!</strong> License ${licenseKey} has been deactivated for hardware ID ${hardwareId}.`;
+        });
+    </script>
+</body>
+</html> 

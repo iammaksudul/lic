@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licensing System - Client Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo img {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .form-control {
+            padding: 12px;
+            border-radius: 5px;
+        }
+        
+        .btn-primary {
+            padding: 12px;
+            font-weight: 500;
+        }
+        
+        .alert {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        .form-text {
+            font-size: 0.85rem;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        .password-field {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="Licensing System Logo">
+        </div>
+        
+        <h4 class="text-center mb-4">Client Login</h4>
+        
+        <div class="alert alert-danger" id="error-alert" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> <span id="error-message"></span>
+        </div>
+        
+        <form id="login-form">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="password-field">
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <i class="bi bi-eye-slash password-toggle" id="toggle-password"></i>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="license_key" class="form-label">License Key</label>
+                <input type="text" class="form-control" id="license_key" name="license_key" required>
+                <div class="form-text">Enter your license key to access your account.</div>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            
+            <div class="text-center mt-3">
+                <a href="/client/reset-password" class="text-decoration-none">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            const errorAlert = document.getElementById('error-alert');
+            const errorMessage = document.getElementById('error-message');
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordField = document.getElementById('password');
+            
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                togglePassword.classList.toggle('bi-eye');
+                togglePassword.classList.toggle('bi-eye-slash');
+            });
+            
+            // Handle form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const licenseKey = document.getElementById('license_key').value;
+                
+                // Hide any previous error messages
+                errorAlert.style.display = 'none';
+                
+                // Send login request to server
+                fetch('/client/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        license_key: licenseKey
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Store token and license info in localStorage
+                        localStorage.setItem('client_token', data.token);
+                        localStorage.setItem('license_info', JSON.stringify(data.license));
+                        
+                        // Redirect to client dashboard
+                        window.location.href = '/client/dashboard';
+                    } else {
+                        // Display error message
+                        errorMessage.textContent = data.message || 'Invalid email, password, or license key.';
+                        errorAlert.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    errorMessage.textContent = 'An error occurred. Please try again later.';
+                    errorAlert.style.display = 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
