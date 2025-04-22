@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licensing System - Installation Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #f8f9fa;
+        }
+        
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        
+        @media (max-width: 767.98px) {
+            .sidebar {
+                top: 5rem;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        
+        .nav-link {
+            color: #333;
+        }
+        
+        .nav-link.active {
+            color: #0d6efd;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Installation Guide</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#system-requirements">
+                                <i class="bi bi-cpu"></i>
+                                System Requirements
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#installation">
+                                <i class="bi bi-download"></i>
+                                Installation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#configuration">
+                                <i class="bi bi-gear"></i>
+                                Configuration
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#payment-setup">
+                                <i class="bi bi-credit-card"></i>
+                                Payment Setup
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cms-setup">
+                                <i class="bi bi-layout-text-window"></i>
+                                CMS Setup
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#security">
+                                <i class="bi bi-shield-lock"></i>
+                                Security
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#maintenance">
+                                <i class="bi bi-tools"></i>
+                                Maintenance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#troubleshooting">
+                                <i class="bi bi-question-circle"></i>
+                                Troubleshooting
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div id="content-area">
+                    <div class="section" id="system-requirements">
+                        <h2 class="section-title">System Requirements</h2>
+                        <p>Before installing the Licensing System, ensure your server meets the following requirements:</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Server Requirements</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Operating System:</strong> Linux (Ubuntu 20.04+, CentOS 8+), Windows Server 2019+</li>
+                                    <li><strong>Web Server:</strong> Apache 2.4+, Nginx 1.18+</li>
+                                    <li><strong>PHP:</strong> 8.0+ with the following extensions:
+                                        <ul>
+                                            <li>PDO</li>
+                                            <li>MySQLi</li>
+                                            <li>OpenSSL</li>
+                                            <li>cURL</li>
+                                            <li>JSON</li>
+                                            <li>Mbstring</li>
+                                            <li>XML</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Database:</strong> MySQL 5.7+, MariaDB 10.3+</li>
+                                    <li><strong>Memory:</strong> 2GB RAM minimum (4GB recommended)</li>
+                                    <li><strong>Storage:</strong> 10GB minimum (varies based on usage)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Client Requirements</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>Web Browser:</strong> Chrome 80+, Firefox 75+, Safari 13+, Edge 80+</li>
+                                    <li><strong>JavaScript:</strong> Enabled</li>
+                                    <li><strong>Cookies:</strong> Enabled</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section" id="installation">
+                        <h2 class="section-title">Installation</h2>
+                        <p>Follow these steps to install the Licensing System:</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">1</span> Download the Installation Package</h5>
+                                <p>Download the latest version of the Licensing System from our website or repository.</p>
+                                <div class="code-block">
+# Using Git
+git clone https://github.com/your-org/licensing-system.git
+cd licensing-system
+
+# Or download the ZIP file and extract it
+unzip licensing-system.zip
+cd licensing-system
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">2</span> Set Up the Database</h5>
+                                <p>Create a new MySQL database for the Licensing System.</p>
+                                <div class="code-block">
+# Log in to MySQL
+mysql -u root -p
+
+# Create the database
+CREATE DATABASE licensing_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+# Create a user and grant permissions
+CREATE USER 'licensing_user'@'localhost' IDENTIFIED BY 'your_secure_password';
+GRANT ALL PRIVILEGES ON licensing_system.* TO 'licensing_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">3</span> Configure the Web Server</h5>
+                                <p>Set up your web server to point to the installation directory.</p>
+                                
+                                <h6>Apache Configuration</h6>
+                                <div class="code-block">
+# Create a virtual host configuration
+<VirtualHost *:80>
+    ServerName license.yourdomain.com
+    DocumentRoot /path/to/licensing-system/public
+    
+    <Directory /path/to/licensing-system/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    ErrorLog ${APACHE_LOG_DIR}/licensing-error.log
+    CustomLog ${APACHE_LOG_DIR}/licensing-access.log combined
+</VirtualHost>
+                                </div>
+                                
+                                <h6>Nginx Configuration</h6>
+                                <div class="code-block">
+server {
+    listen 80;
+    server_name license.yourdomain.com;
+    root /path/to/licensing-system/public;
+    index index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">4</span> Run the Installation Wizard</h5>
+                                <p>Access the installation wizard through your web browser.</p>
+                                <ol>
+                                    <li>Navigate to <code>http://license.yourdomain.com/install</code></li>
+                                    <li>Follow the on-screen instructions to complete the installation</li>
+                                    <li>Enter your database credentials and other required information</li>
+                                    <li>Create your admin account</li>
+                                </ol>
+                                <div class="alert alert-warning">
+                                    <i class="bi bi-exclamation-triangle"></i> <strong>Important:</strong> After installation, delete the <code>install</code> directory for security reasons.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">5</span> Set Up SSL (Recommended)</h5>
+                                <p>For security, it's highly recommended to set up SSL for your Licensing System.</p>
+                                <div class="code-block">
+# Using Let's Encrypt with Certbot
+sudo apt-get update
+sudo apt-get install certbot python3-certbot-apache  # For Apache
+# OR
+sudo apt-get install certbot python3-certbot-nginx   # For Nginx
+
+# Obtain and install the certificate
+sudo certbot --apache -d license.yourdomain.com  # For Apache
+# OR
+sudo certbot --nginx -d license.yourdomain.com   # For Nginx
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section" id="configuration">
+                        <h2 class="section-title">Configuration</h2>
+                        <p>After installation, you'll need to configure various aspects of the Licensing System.</p>
+                        
+                        <h4>Basic Configuration</h4>
+                        <p>Access the admin panel and navigate to Settings > General to configure:</p>
+                        <ul>
+                            <li>Site name and description</li>
+                            <li>Admin email address</li>
+                            <li>Default timezone</li>
+                            <li>License key format and prefix</li>
+                            <li>Default license duration</li>
+                            <li>Maximum activations per license</li>
+                        </ul>
+                        
+                        <h4>Email Configuration</h4>
+                        <p>Configure email settings to ensure notifications are sent properly:</p>
+                        <ol>
+                            <li>Go to Settings > Email</li>
+                            <li>Enter your SMTP server details</li>
+                            <li>Configure email templates for various notifications</li>
+                            <li>Test the email configuration</li>
+                        </ol>
+                        
+                        <h4>API Configuration</h4>
+                        <p>Set up API access for integration with other systems:</p>
+                        <ol>
+                            <li>Go to Settings > API</li>
+                            <li>Generate API keys for different integrations</li>
+                            <li>Configure API rate limits and access permissions</li>
+                            <li>Document the API endpoints for your developers</li>
+                        </ol>
+                        
+                        <h4>License Types</h4>
+                        <p>Define the license types available in your system:</p>
+                        <ol>
+                            <li>Go to Settings > License Types</li>
+                            <li>Create or edit license types (Trial, Standard, Premium, Enterprise)</li>
+                            <li>Set pricing, duration, and features for each type</li>
+                            <li>Configure upgrade paths between license types</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="section" id="payment-setup">
+                        <h2 class="section-title">Payment Setup</h2>
+                        <p>The Licensing System supports multiple payment gateways for processing license purchases and renewals.</p>
+                        
+                        <h4>Setting Up Payment Gateways</h4>
+                        <p>To set up a payment gateway:</p>
+                        <ol>
+                            <li>Go to Settings > Payment</li>
+                            <li>Select your preferred payment gateway</li>
+                            <li>Enter your API credentials</li>
+                            <li>Configure webhook endpoints for payment notifications</li>
+                            <li>Test the integration using the test mode</li>
+                        </ol>
+                        
+                        <h4>Supported Payment Gateways</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-credit-card"></i> Stripe</h5>
+                                        <p>Set up Stripe for credit card processing:</p>
+                                        <ol>
+                                            <li>Create a Stripe account</li>
+                                            <li>Obtain your API keys (Publishable and Secret)</li>
+                                            <li>Configure webhook endpoints</li>
+                                            <li>Set up products and prices in Stripe</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-credit-card"></i> PayPal</h5>
+                                        <p>Set up PayPal for payment processing:</p>
+                                        <ol>
+                                            <li>Create a PayPal Business account</li>
+                                            <li>Obtain your API credentials</li>
+                                            <li>Configure IPN (Instant Payment Notification)</li>
+                                            <li>Set up subscription plans in PayPal</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-credit-card"></i> Square</h5>
+                                        <p>Set up Square for payment processing:</p>
+                                        <ol>
+                                            <li>Create a Square account</li>
+                                            <li>Obtain your API credentials</li>
+                                            <li>Configure webhook endpoints</li>
+                                            <li>Set up catalog items in Square</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-credit-card"></i> Authorize.net</h5>
+                                        <p>Set up Authorize.net for payment processing:</p>
+                                        <ol>
+                                            <li>Create an Authorize.net account</li>
+                                            <li>Obtain your API credentials</li>
+                                            <li>Configure webhook endpoints</li>
+                                            <li>Set up subscription plans in Authorize.net</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h4>Automatic License Activation</h4>
+                        <p>Configure the system to automatically generate and activate licenses upon successful payment:</p>
+                        <ol>
+                            <li>Go to Settings > Payment > Automatic Activation</li>
+                            <li>Enable automatic license generation</li>
+                            <li>Configure license parameters (type, duration, features)</li>
+                            <li>Set up email notifications for new licenses</li>
+                        </ol>
+                        
+                        <h4>Subscription Management</h4>
+                        <p>Set up subscription plans for recurring license payments:</p>
+                        <ol>
+                            <li>Go to Settings > Payment > Subscriptions</li>
+                            <li>Create subscription plans with different durations and prices</li>
+                            <li>Configure renewal settings and grace periods</li>
+                            <li>Set up email notifications for upcoming renewals</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="section" id="cms-setup">
+                        <h2 class="section-title">CMS Setup</h2>
+                        <p>The Licensing System includes a drag-and-drop CMS for creating and managing your software marketplace.</p>
+                        
+                        <h4>Accessing the CMS</h4>
+                        <p>To access the CMS:</p>
+                        <ol>
+                            <li>Log in to the admin panel</li>
+                            <li>Navigate to CMS > Dashboard</li>
+                        </ol>
+                        
+                        <h4>Creating Pages</h4>
+                        <p>To create a new page:</p>
+                        <ol>
+                            <li>Go to CMS > Pages</li>
+                            <li>Click "Add New Page"</li>
+                            <li>Enter a title and URL slug</li>
+                            <li>Use the drag-and-drop editor to build your page</li>
+                            <li>Add content blocks, images, and other elements</li>
+                            <li>Preview and publish your page</li>
+                        </ol>
+                        
+                        <h4>Managing Products</h4>
+                        <p>To add a new software product to your marketplace:</p>
+                        <ol>
+                            <li>Go to CMS > Products</li>
+                            <li>Click "Add New Product"</li>
+                            <li>Enter product details (name, description, features)</li>
+                            <li>Upload product images and screenshots</li>
+                            <li>Configure pricing and license options</li>
+                            <li>Set up product pages using the drag-and-drop editor</li>
+                            <li>Publish your product</li>
+                        </ol>
+                        
+                        <h4>Customizing Templates</h4>
+                        <p>To customize the look and feel of your marketplace:</p>
+                        <ol>
+                            <li>Go to CMS > Templates</li>
+                            <li>Select a template to customize</li>
+                            <li>Modify colors, fonts, and layout options</li>
+                            <li>Add your logo and branding elements</li>
+                            <li>Preview and save your changes</li>
+                        </ol>
+                        
+                        <h4>Managing Navigation</h4>
+                        <p>To set up your site navigation:</p>
+                        <ol>
+                            <li>Go to CMS > Navigation</li>
+                            <li>Create menus for different locations (header, footer, sidebar)</li>
+                            <li>Add pages, products, and custom links to your menus</li>
+                            <li>Arrange items using drag-and-drop</li>
+                            <li>Save your navigation settings</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="section" id="security">
+                        <h2 class="section-title">Security</h2>
+                        <p>Implement these security measures to protect your Licensing System.</p>
+                        
+                        <h4>Secure Configuration</h4>
+                        <ul>
+                            <li>Use strong passwords for all accounts</li>
+                            <li>Enable two-factor authentication for admin accounts</li>
+                            <li>Configure IP restrictions for admin access</li>
+                            <li>Set up SSL/TLS encryption</li>
+                            <li>Regularly update the system and all dependencies</li>
+                        </ul>
+                        
+                        <h4>License Security</h4>
+                        <ul>
+                            <li>Use strong encryption for license keys</li>
+                            <li>Implement hardware binding for licenses</li>
+                            <li>Set up domain/IP verification for web applications</li>
+                            <li>Configure anti-tampering measures</li>
+                            <li>Monitor for suspicious activation patterns</li>
+                        </ul>
+                        
+                        <h4>Backup and Recovery</h4>
+                        <p>Set up regular backups of your system:</p>
+                        <ol>
+                            <li>Go to Settings > Backup</li>
+                            <li>Configure automatic backups (daily, weekly, monthly)</li>
+                            <li>Set up backup storage (local, cloud, etc.)</li>
+                            <li>Test your backup and recovery process</li>
+                        </ol>
+                        
+                        <h4>Monitoring and Logging</h4>
+                        <p>Enable comprehensive logging and monitoring:</p>
+                        <ol>
+                            <li>Go to Settings > Logs</li>
+                            <li>Configure log levels and retention periods</li>
+                            <li>Set up alerts for suspicious activities</li>
+                            <li>Regularly review logs for security issues</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="section" id="maintenance">
+                        <h2 class="section-title">Maintenance</h2>
+                        <p>Regular maintenance is essential for the smooth operation of your Licensing System.</p>
+                        
+                        <h4>Regular Updates</h4>
+                        <p>Keep your system up to date:</p>
+                        <ol>
+                            <li>Check for updates regularly</li>
+                            <li>Back up your system before updating</li>
+                            <li>Apply updates in a test environment first</li>
+                            <li>Test all functionality after updating</li>
+                        </ol>
+                        
+                        <h4>Database Maintenance</h4>
+                        <p>Perform regular database maintenance:</p>
+                        <ol>
+                            <li>Optimize database tables</li>
+                            <li>Clean up old logs and temporary data</li>
+                            <li>Monitor database performance</li>
+                            <li>Back up the database regularly</li>
+                        </ol>
+                        
+                        <h4>Performance Optimization</h4>
+                        <p>Optimize your system for better performance:</p>
+                        <ol>
+                            <li>Enable caching for static content</li>
+                            <li>Optimize database queries</li>
+                            <li>Compress and optimize images</li>
+                            <li>Monitor server resources</li>
+                        </ol>
+                        
+                        <h4>License Cleanup</h4>
+                        <p>Regularly clean up expired and unused licenses:</p>
+                        <ol>
+                            <li>Go to Licenses > Maintenance</li>
+                            <li>Identify expired licenses</li>
+                            <li>Archive or delete unused licenses</li>
+                            <li>Generate reports on license usage</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="section" id="troubleshooting">
+                        <h2 class="section-title">Troubleshooting</h2>
+                        <p>If you encounter issues with your Licensing System, try these troubleshooting steps.</p>
+                        
+                        <div class="accordion" id="troubleshootingAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse1" aria-expanded="false" aria-controls="troubleCollapse1">
+                                        Installation Fails
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse1" class="accordion-collapse collapse" aria-labelledby="trouble1" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Check if your server meets the system requirements</li>
+                                            <li>Verify that all required PHP extensions are installed</li>
+                                            <li>Ensure proper permissions on installation directories</li>
+                                            <li>Check error logs for specific error messages</li>
+                                            <li>Try installing in a clean environment</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse2" aria-expanded="false" aria-controls="troubleCollapse2">
+                                        Payment Processing Issues
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse2" class="accordion-collapse collapse" aria-labelledby="trouble2" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Verify your payment gateway API credentials</li>
+                                            <li>Check if your server can connect to the payment gateway</li>
+                                            <li>Ensure webhook endpoints are correctly configured</li>
+                                            <li>Test the payment process in test mode</li>
+                                            <li>Check error logs for specific error messages</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse3" aria-expanded="false" aria-controls="troubleCollapse3">
+                                        License Verification Fails
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse3" class="accordion-collapse collapse" aria-labelledby="trouble3" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Check if the license key is valid and not expired</li>
+                                            <li>Verify that the license is activated for the correct hardware</li>
+                                            <li>Check domain/IP verification settings</li>
+                                            <li>Ensure the client can connect to your license server</li>
+                                            <li>Test the verification process with a known good license</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse4" aria-expanded="false" aria-controls="troubleCollapse4">
+                                        CMS Editor Not Working
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse4" class="accordion-collapse collapse" aria-labelledby="trouble4" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Clear your browser cache and cookies</li>
+                                            <li>Try using a different browser</li>
+                                            <li>Check if JavaScript is enabled</li>
+                                            <li>Verify that all CMS assets are properly loaded</li>
+                                            <li>Check for JavaScript errors in the browser console</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4">
+                            <i class="bi bi-info-circle"></i> <strong>Need More Help?</strong> If you continue to experience issues, please contact our support team with detailed information about the problem, including error messages and steps to reproduce.
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active state in sidebar
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Update active state based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 100) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

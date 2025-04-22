@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licensing System - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #f8f9fa;
+        }
+        
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .navbar-brand {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
+        
+        .navbar .navbar-toggler {
+            top: .25rem;
+            right: 1rem;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        
+        @media (max-width: 767.98px) {
+            .sidebar {
+                top: 5rem;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Licensing System</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="w-100"></div>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#" id="logoutBtn">Sign out</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-page="dashboard">
+                                <i class="bi bi-house-door"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="licenses">
+                                <i class="bi bi-key"></i>
+                                Licenses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="users">
+                                <i class="bi bi-people"></i>
+                                Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="products">
+                                <i class="bi bi-box"></i>
+                                Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-page="settings">
+                                <i class="bi bi-gear"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div id="content-area">
+                    <!-- Content will be loaded here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                window.location.href = '/admin/login';
+            }
+            
+            // Load dashboard by default
+            loadPage('dashboard');
+            
+            // Add event listeners to navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    loadPage(page);
+                    
+                    // Update active state
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('admin_token');
+                window.location.href = '/admin/login';
+            });
+        });
+        
+        // Function to load page content
+        function loadPage(page) {
+            const contentArea = document.getElementById('content-area');
+            
+            // Show loading indicator
+            contentArea.innerHTML = '<div class="text-center mt-5"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+            
+            // Load the page content
+            fetch(`/admin/api/${page}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    contentArea.innerHTML = html;
+                    
+                    // Initialize any page-specific scripts
+                    if (page === 'dashboard') {
+                        initDashboard();
+                    } else if (page === 'licenses') {
+                        initLicenses();
+                    } else if (page === 'users') {
+                        initUsers();
+                    } else if (page === 'products') {
+                        initProducts();
+                    } else if (page === 'settings') {
+                        initSettings();
+                    }
+                })
+                .catch(error => {
+                    contentArea.innerHTML = `<div class="alert alert-danger mt-4">Error loading content: ${error.message}</div>`;
+                });
+        }
+        
+        // Initialize dashboard
+        function initDashboard() {
+            // Load dashboard data
+            fetch('/admin/api/dashboard/stats')
+                .then(response => response.json())
+                .then(data => {
+                    // Update dashboard stats
+                    document.getElementById('total-licenses').textContent = data.total_licenses;
+                    document.getElementById('active-licenses').textContent = data.active_licenses;
+                    document.getElementById('total-users').textContent = data.total_users;
+                    document.getElementById('total-products').textContent = data.total_products;
+                    
+                    // Create license type chart
+                    const ctx = document.getElementById('licenseTypeChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Trial', 'Standard', 'Premium', 'Enterprise'],
+                            datasets: [{
+                                data: [
+                                    data.license_types.trial,
+                                    data.license_types.standard,
+                                    data.license_types.premium,
+                                    data.license_types.enterprise
+                                ],
+                                backgroundColor: [
+                                    '#6c757d',
+                                    '#0d6efd',
+                                    '#198754',
+                                    '#dc3545'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Create license activation chart
+                    const activationCtx = document.getElementById('licenseActivationChart').getContext('2d');
+                    new Chart(activationCtx, {
+                        type: 'line',
+                        data: {
+                            labels: data.activation_trend.labels,
+                            datasets: [{
+                                label: 'License Activations',
+                                data: data.activation_trend.data,
+                                borderColor: '#0d6efd',
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading dashboard data:', error);
+                });
+        }
+        
+        // Initialize licenses page
+        function initLicenses() {
+            // Load licenses data
+            fetch('/admin/api/licenses')
+                .then(response => response.json())
+                .then(data => {
+                    const licensesTable = document.getElementById('licenses-table');
+                    const tbody = licensesTable.querySelector('tbody');
+                    tbody.innerHTML = '';
+                    
+                    data.forEach(license => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${license.id}</td>
+                            <td>${license.license_key}</td>
+                            <td>${license.type}</td>
+                            <td>${license.user_name}</td>
+                            <td>${license.product_name}</td>
+                            <td>${license.is_active ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>'}</td>
+                            <td>${new Date(license.created_at).toLocaleDateString()}</td>
+                            <td>${new Date(license.expires_at).toLocaleDateString()}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary view-license" data-id="${license.id}">View</button>
+                                <button class="btn btn-sm btn-warning edit-license" data-id="${license.id}">Edit</button>
+                                <button class="btn btn-sm btn-danger delete-license" data-id="${license.id}">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    
+                    // Add event listeners to buttons
+                    document.querySelectorAll('.view-license').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            viewLicense(id);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.edit-license').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            editLicense(id);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.delete-license').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            deleteLicense(id);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading licenses:', error);
+                });
+        }
+        
+        // Initialize users page
+        function initUsers() {
+            // Load users data
+            fetch('/admin/api/users')
+                .then(response => response.json())
+                .then(data => {
+                    const usersTable = document.getElementById('users-table');
+                    const tbody = usersTable.querySelector('tbody');
+                    tbody.innerHTML = '';
+                    
+                    data.forEach(user => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td>${user.email}</td>
+                            <td>${user.full_name}</td>
+                            <td>${user.role}</td>
+                            <td>${user.is_active ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary view-user" data-id="${user.id}">View</button>
+                                <button class="btn btn-sm btn-warning edit-user" data-id="${user.id}">Edit</button>
+                                <button class="btn btn-sm btn-danger delete-user" data-id="${user.id}">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    
+                    // Add event listeners to buttons
+                    document.querySelectorAll('.view-user').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            viewUser(id);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.edit-user').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            editUser(id);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.delete-user').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            deleteUser(id);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading users:', error);
+                });
+        }
+        
+        // Initialize products page
+        function initProducts() {
+            // Load products data
+            fetch('/admin/api/products')
+                .then(response => response.json())
+                .then(data => {
+                    const productsTable = document.getElementById('products-table');
+                    const tbody = productsTable.querySelector('tbody');
+                    tbody.innerHTML = '';
+                    
+                    data.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.version}</td>
+                            <td>${product.is_active ? '<span class="badge bg-success">Active</span>' : '<span class="badge bg-danger">Inactive</span>'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary view-product" data-id="${product.id}">View</button>
+                                <button class="btn btn-sm btn-warning edit-product" data-id="${product.id}">Edit</button>
+                                <button class="btn btn-sm btn-danger delete-product" data-id="${product.id}">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                    
+                    // Add event listeners to buttons
+                    document.querySelectorAll('.view-product').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            viewProduct(id);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.edit-product').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            editProduct(id);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.delete-product').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            deleteProduct(id);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading products:', error);
+                });
+        }
+        
+        // Initialize settings page
+        function initSettings() {
+            // Load settings data
+            fetch('/admin/api/settings')
+                .then(response => response.json())
+                .then(data => {
+                    // Populate settings form
+                    document.getElementById('site-name').value = data.site_name;
+                    document.getElementById('admin-email').value = data.admin_email;
+                    document.getElementById('license-prefix').value = data.license_prefix;
+                    document.getElementById('max-activations').value = data.max_activations;
+                    document.getElementById('trial-duration').value = data.trial_duration;
+                    
+                    // Add event listener to save button
+                    document.getElementById('save-settings').addEventListener('click', function() {
+                        saveSettings();
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading settings:', error);
+                });
+        }
+        
+        // Helper functions for license management
+        function viewLicense(id) {
+            // Implementation for viewing license details
+        }
+        
+        function editLicense(id) {
+            // Implementation for editing license
+        }
+        
+        function deleteLicense(id) {
+            // Implementation for deleting license
+        }
+        
+        // Helper functions for user management
+        function viewUser(id) {
+            // Implementation for viewing user details
+        }
+        
+        function editUser(id) {
+            // Implementation for editing user
+        }
+        
+        function deleteUser(id) {
+            // Implementation for deleting user
+        }
+        
+        // Helper functions for product management
+        function viewProduct(id) {
+            // Implementation for viewing product details
+        }
+        
+        function editProduct(id) {
+            // Implementation for editing product
+        }
+        
+        function deleteProduct(id) {
+            // Implementation for deleting product
+        }
+        
+        // Helper function for saving settings
+        function saveSettings() {
+            // Implementation for saving settings
+        }
+    </script>
+</body>
+</html> 

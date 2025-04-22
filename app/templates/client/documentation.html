@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licensing System - Customer Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #f8f9fa;
+        }
+        
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        
+        @media (max-width: 767.98px) {
+            .sidebar {
+                top: 5rem;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        
+        .nav-link {
+            color: #333;
+        }
+        
+        .nav-link.active {
+            color: #0d6efd;
+            font-weight: bold;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Customer Guide</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#getting-started">
+                                <i class="bi bi-house-door"></i>
+                                Getting Started
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#purchasing">
+                                <i class="bi bi-cart"></i>
+                                Purchasing Software
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#license-activation">
+                                <i class="bi bi-key"></i>
+                                License Activation
+                            </a>
+                        </li>
+                        <li class="nav-link" href="#client-panel">
+                            <i class="bi bi-person"></i>
+                            Client Panel
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#license-management">
+                                <i class="bi bi-gear"></i>
+                                Managing Your License
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#troubleshooting">
+                                <i class="bi bi-question-circle"></i>
+                                Troubleshooting
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#faq">
+                                <i class="bi bi-chat-dots"></i>
+                                FAQ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div id="content-area">
+                    <div class="section" id="getting-started">
+                        <h2 class="section-title">Getting Started</h2>
+                        <p>Welcome to the Licensing System! This guide will help you understand how to purchase, activate, and manage your software licenses.</p>
+                        
+                        <h4>What is a Software License?</h4>
+                        <p>A software license is a legal agreement that grants you the right to use a software product. Our licensing system helps you manage these licenses easily and securely.</p>
+                        
+                        <h4>Key Benefits</h4>
+                        <ul>
+                            <li>Secure license activation and verification</li>
+                            <li>Easy license management through the client panel</li>
+                            <li>Automatic license renewal options</li>
+                            <li>Multi-device activation (where applicable)</li>
+                            <li>License transfer capabilities</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section" id="purchasing">
+                        <h2 class="section-title">Purchasing Software</h2>
+                        <p>Follow these steps to purchase software with a license:</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">1</span> Browse Available Software</h5>
+                                <p>Visit our software marketplace to browse available products. Each product page includes detailed information about features, pricing, and license terms.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">2</span> Select a License Type</h5>
+                                <p>Choose the appropriate license type for your needs:</p>
+                                <ul>
+                                    <li><strong>Trial:</strong> Time-limited licenses for evaluation</li>
+                                    <li><strong>Standard:</strong> Basic licenses with core features</li>
+                                    <li><strong>Premium:</strong> Advanced licenses with additional features</li>
+                                    <li><strong>Enterprise:</strong> Custom licenses for large organizations</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">3</span> Complete the Purchase</h5>
+                                <p>Add the software to your cart and proceed to checkout. You'll need to create an account or log in to complete your purchase.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">4</span> Receive Your License</h5>
+                                <p>After successful payment, you'll receive your license key via email. You can also access your license information through the client panel.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> <strong>Note:</strong> Some software products may require domain or IP verification. Make sure to provide accurate information during the purchase process.
+                        </div>
+                    </div>
+                    
+                    <div class="section" id="license-activation">
+                        <h2 class="section-title">License Activation</h2>
+                        <p>Once you have your license key, follow these steps to activate it:</p>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">1</span> Download the Software</h5>
+                                <p>Download the software from the provided link in your purchase confirmation email or from the client panel.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">2</span> Install the Software</h5>
+                                <p>Follow the installation instructions provided with the software. Most software products include a setup wizard to guide you through the process.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">3</span> Activate Your License</h5>
+                                <p>When prompted, enter your license key to activate the software. The activation process may vary depending on the software:</p>
+                                <ul>
+                                    <li><strong>Online Activation:</strong> The software connects to our servers to verify your license.</li>
+                                    <li><strong>Offline Activation:</strong> You may need to generate an activation code from our website and enter it in the software.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><span class="step-number">4</span> Verify Activation</h5>
+                                <p>Once activated, the software should display a confirmation message. You can also verify your activation status in the client panel.</p>
+                            </div>
+                        </div>
+                        
+                        <h4>Activation on Multiple Devices</h4>
+                        <p>Depending on your license type, you may be able to activate the software on multiple devices:</p>
+                        <ul>
+                            <li><strong>Single-Device License:</strong> Can only be activated on one device at a time.</li>
+                            <li><strong>Multi-Device License:</strong> Can be activated on multiple devices simultaneously (up to the limit specified in your license).</li>
+                        </ul>
+                        <p>To activate on additional devices, simply follow the same activation process on each device using your license key.</p>
+                    </div>
+                    
+                    <div class="section" id="client-panel">
+                        <h2 class="section-title">Client Panel</h2>
+                        <p>The client panel provides a central hub for managing all your licenses and software products.</p>
+                        
+                        <h4>Accessing the Client Panel</h4>
+                        <p>To access the client panel:</p>
+                        <ol>
+                            <li>Visit our website and click on "Client Login"</li>
+                            <li>Enter your email and password</li>
+                            <li>Enter your license key when prompted</li>
+                        </ol>
+                        
+                        <h4>Features of the Client Panel</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-key"></i> License Management</h5>
+                                        <p>View and manage all your licenses, including activation status, expiration dates, and renewal options.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-download"></i> Software Downloads</h5>
+                                        <p>Access download links for all your purchased software products, including updates and patches.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-credit-card"></i> Billing & Invoices</h5>
+                                        <p>View your billing history, download invoices, and manage payment methods for automatic renewals.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-headset"></i> Support</h5>
+                                        <p>Access support resources, submit tickets, and communicate with our support team.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h4>Managing Your Account</h4>
+                        <p>In the client panel, you can:</p>
+                        <ul>
+                            <li>Update your profile information</li>
+                            <li>Change your password</li>
+                            <li>Manage notification preferences</li>
+                            <li>View your account activity</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section" id="license-management">
+                        <h2 class="section-title">Managing Your License</h2>
+                        <p>Your license may need management over time. Here are common tasks you might need to perform:</p>
+                        
+                        <h4>Renewing Your License</h4>
+                        <p>When your license is approaching expiration, you'll receive email notifications. To renew your license:</p>
+                        <ol>
+                            <li>Log in to the client panel</li>
+                            <li>Navigate to the Licenses section</li>
+                            <li>Find the license you want to renew and click "Renew"</li>
+                            <li>Complete the payment process</li>
+                        </ol>
+                        <p>You can also set up automatic renewal to ensure uninterrupted access to your software.</p>
+                        
+                        <h4>Transferring Your License</h4>
+                        <p>If you need to transfer your license to another user or organization:</p>
+                        <ol>
+                            <li>Log in to the client panel</li>
+                            <li>Navigate to the Licenses section</li>
+                            <li>Find the license you want to transfer and click "Transfer"</li>
+                            <li>Enter the email address of the new license holder</li>
+                            <li>Confirm the transfer</li>
+                        </ol>
+                        <p>The new license holder will receive an email with instructions to accept the transfer.</p>
+                        
+                        <h4>Deactivating Your License</h4>
+                        <p>If you need to deactivate your license (e.g., before transferring it to another device):</p>
+                        <ol>
+                            <li>Open the software</li>
+                            <li>Go to the license or activation settings</li>
+                            <li>Select the option to deactivate the license</li>
+                        </ol>
+                        <p>Alternatively, you can deactivate your license through the client panel.</p>
+                        
+                        <h4>Upgrading Your License</h4>
+                        <p>To upgrade to a higher tier license:</p>
+                        <ol>
+                            <li>Log in to the client panel</li>
+                            <li>Navigate to the Licenses section</li>
+                            <li>Find the license you want to upgrade and click "Upgrade"</li>
+                            <li>Select the new license type</li>
+                            <li>Complete the payment process for the price difference</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="section" id="troubleshooting">
+                        <h2 class="section-title">Troubleshooting</h2>
+                        <p>If you encounter issues with your license or software, try these troubleshooting steps:</p>
+                        
+                        <div class="accordion" id="troubleshootingAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse1" aria-expanded="false" aria-controls="troubleCollapse1">
+                                        License Activation Failed
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse1" class="accordion-collapse collapse" aria-labelledby="trouble1" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Verify that you've entered the license key correctly</li>
+                                            <li>Check your internet connection</li>
+                                            <li>Ensure your license hasn't expired</li>
+                                            <li>Try deactivating the license on other devices if you've reached the activation limit</li>
+                                            <li>Contact support if the issue persists</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse2" aria-expanded="false" aria-controls="troubleCollapse2">
+                                        Software Says License is Invalid
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse2" class="accordion-collapse collapse" aria-labelledby="trouble2" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Check if your license has expired</li>
+                                            <li>Verify that you're using the correct license key for the software</li>
+                                            <li>Ensure your system clock is set correctly</li>
+                                            <li>Try deactivating and reactivating the license</li>
+                                            <li>If using domain/IP verification, ensure you're using the software on the authorized domain/IP</li>
+                                            <li>Contact support with your license key and error message</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse3" aria-expanded="false" aria-controls="troubleCollapse3">
+                                        Can't Access Client Panel
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse3" class="accordion-collapse collapse" aria-labelledby="trouble3" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Verify your email and password</li>
+                                            <li>Use the "Forgot Password" option if you can't remember your password</li>
+                                            <li>Check your email for any account verification links</li>
+                                            <li>Ensure your browser is up to date</li>
+                                            <li>Try clearing your browser cache and cookies</li>
+                                            <li>Contact support if you still can't access your account</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="trouble4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#troubleCollapse4" aria-expanded="false" aria-controls="troubleCollapse4">
+                                        License Transfer Failed
+                                    </button>
+                                </h2>
+                                <div id="troubleCollapse4" class="accordion-collapse collapse" aria-labelledby="trouble4" data-bs-parent="#troubleshootingAccordion">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Ensure the recipient email address is correct</li>
+                                            <li>Check if the recipient has accepted the transfer invitation</li>
+                                            <li>Verify that your license is eligible for transfer</li>
+                                            <li>Try deactivating the license on all devices before transferring</li>
+                                            <li>Contact support with the license key and recipient email</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-4">
+                            <i class="bi bi-exclamation-triangle"></i> <strong>Important:</strong> If you continue to experience issues, please contact our support team with your license key, software version, and a detailed description of the problem.
+                        </div>
+                    </div>
+                    
+                    <div class="section" id="faq">
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+                                        What happens when my license expires?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        When your license expires, the software will enter a grace period (if applicable) or will stop functioning. You'll receive notifications before expiration to renew your license. To continue using the software, you'll need to renew your license through the client panel or by contacting our sales team.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                        Can I use my license on multiple computers?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        This depends on your license type. Single-device licenses can only be activated on one computer at a time. Multi-device licenses allow activation on multiple computers simultaneously, up to the limit specified in your license. You can check your license type and activation limit in the client panel.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                                        How do I upgrade my license?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        To upgrade your license, log in to the client panel, navigate to the Licenses section, find the license you want to upgrade, and click "Upgrade". Select the new license type and complete the payment process for the price difference. Your license will be upgraded immediately after payment.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                        What is domain/IP verification?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Domain/IP verification is a security feature that restricts license usage to specific domains or IP addresses. This is commonly used for web applications or server software. When purchasing a license with domain/IP verification, you'll need to provide the domain or IP address where the software will be used. The license will only work on the specified domain/IP.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq5">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                                        Can I get a refund for my license?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Our refund policy varies depending on the software and license type. Generally, we offer a 30-day money-back guarantee for most software products. If you're eligible for a refund, you can request one through the client panel or by contacting our support team. Please note that once a license is activated, refund eligibility may be limited.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active state in sidebar
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Update active state based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 100) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

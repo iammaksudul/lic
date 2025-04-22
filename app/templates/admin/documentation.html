@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Licensing System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+        
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fc;
+            color: #5a5c69;
+        }
+        
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #fff;
+            width: 250px;
+        }
+        
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .nav-link {
+            color: var(--dark-color);
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            border-radius: 0.35rem;
+            margin: 0.2rem 0.5rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+            background-color: rgba(78, 115, 223, 0.1);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            background-color: rgba(78, 115, 223, 0.1);
+        }
+        
+        .nav-link i {
+            margin-right: 0.5rem;
+        }
+        
+        .doc-section {
+            background-color: #fff;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .doc-section h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e3e6f0;
+        }
+        
+        .doc-section h3 {
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .doc-section p {
+            margin-bottom: 1rem;
+        }
+        
+        .doc-section ul, .doc-section ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        
+        .doc-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-block {
+            background-color: #f8f9fc;
+            border-radius: 0.35rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .code-block code {
+            color: var(--primary-color);
+        }
+        
+        .alert {
+            border-radius: 0.35rem;
+            margin-bottom: 1rem;
+        }
+        
+        .alert-info {
+            background-color: rgba(54, 185, 204, 0.1);
+            border-color: var(--info-color);
+            color: var(--info-color);
+        }
+        
+        .alert-warning {
+            background-color: rgba(246, 194, 62, 0.1);
+            border-color: var(--warning-color);
+            color: var(--warning-color);
+        }
+        
+        .alert-success {
+            background-color: rgba(28, 200, 138, 0.1);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+        
+        .alert-danger {
+            background-color: rgba(231, 74, 59, 0.1);
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        .table {
+            margin-bottom: 1rem;
+        }
+        
+        .table th {
+            background-color: #f8f9fc;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .badge {
+            font-weight: 600;
+            padding: 0.35em 0.65em;
+            border-radius: 0.35rem;
+        }
+        
+        .badge-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .badge-success {
+            background-color: var(--success-color);
+        }
+        
+        .badge-warning {
+            background-color: var(--warning-color);
+        }
+        
+        .badge-danger {
+            background-color: var(--danger-color);
+        }
+        
+        .badge-info {
+            background-color: var(--info-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2653d4;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/dashboard">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/products">
+                                <i class="bi bi-box"></i> Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/licenses">
+                                <i class="bi bi-key"></i> Licenses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/customers">
+                                <i class="bi bi-people"></i> Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/payments">
+                                <i class="bi bi-credit-card"></i> Payments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/settings">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/documentation">
+                                <i class="bi bi-book"></i> Documentation
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Documentation</h1>
+                    <div>
+                        <a href="/admin/documentation/print" class="btn btn-outline-primary me-2">
+                            <i class="bi bi-printer"></i> Print
+                        </a>
+                        <a href="/admin/documentation/download" class="btn btn-primary">
+                            <i class="bi bi-download"></i> Download PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="doc-section">
+                    <h2>Table of Contents</h2>
+                    <ol>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#integration">Integration Guide</a></li>
+                        <li><a href="#payment">Payment Integration</a></li>
+                        <li><a href="#license-management">License Management</a></li>
+                        <li><a href="#license-verification">License Verification</a></li>
+                        <li><a href="#api-reference">API Reference</a></li>
+                        <li><a href="#sdk-documentation">SDK Documentation</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ol>
+                </div>
+
+                <!-- Overview -->
+                <div class="doc-section" id="overview">
+                    <h2>1. Overview</h2>
+                    <p>The Licensing System is a comprehensive solution for managing software licenses, payments, and customer relationships. This documentation provides detailed information on how to integrate, configure, and utilize the system effectively.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>License Management:</strong> Generate, revoke, and manage software licenses with ease.</li>
+                        <li><strong>Payment Processing:</strong> Integrated payment gateways for seamless transactions.</li>
+                        <li><strong>Customer Management:</strong> Track customer information, purchase history, and license usage.</li>
+                        <li><strong>Analytics & Reporting:</strong> Gain insights into sales, license usage, and customer behavior.</li>
+                        <li><strong>API & SDK Support:</strong> Integrate with your existing systems using our comprehensive API and SDKs.</li>
+                    </ul>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i> This documentation is designed for administrators and developers who need to integrate the Licensing System with their software products.
+                    </div>
+                </div>
+
+                <!-- Integration Guide -->
+                <div class="doc-section" id="integration">
+                    <h2>2. Integration Guide</h2>
+                    <p>This section provides step-by-step instructions for integrating the Licensing System with your software products.</p>
+                    
+                    <h3>Integration Methods</h3>
+                    <p>There are several ways to integrate the Licensing System with your software:</p>
+                    
+                    <h4>2.1 SDK Integration</h4>
+                    <p>Our SDKs provide the easiest way to integrate license verification into your applications:</p>
+                    
+                    <h5>Python SDK</h5>
+                    <div class="code-block">
+                        <pre><code>from licensing_system import LicenseVerifier
+
+# Initialize the verifier
+verifier = LicenseVerifier(api_key="your_api_key")
+
+# Verify a license
+result = verifier.verify_license(license_key="LICENSE-KEY-HERE")
+
+if result.is_valid:
+    print(f"License is valid. Expires: {result.expiry_date}")
+else:
+    print(f"License is invalid. Reason: {result.error_message}")</code></pre>
+                    </div>
+                    
+                    <h5>Node.js SDK</h5>
+                    <div class="code-block">
+                        <pre><code>const { LicenseVerifier } = require('licensing-system');
+
+// Initialize the verifier
+const verifier = new LicenseVerifier({ apiKey: 'your_api_key' });
+
+// Verify a license
+verifier.verifyLicense('LICENSE-KEY-HERE')
+  .then(result => {
+    if (result.isValid) {
+      console.log(`License is valid. Expires: ${result.expiryDate}`);
+    } else {
+      console.log(`License is invalid. Reason: ${result.errorMessage}`);
+    }
+  })
+  .catch(error => {
+    console.error('Verification error:', error);
+  });</code></pre>
+                    </div>
+                    
+                    <h5>PHP SDK</h5>
+                    <div class="code-block">
+                        <pre><code>use LicensingSystem\LicenseVerifier;
+
+// Initialize the verifier
+$verifier = new LicenseVerifier(['api_key' => 'your_api_key']);
+
+// Verify a license
+$result = $verifier->verifyLicense('LICENSE-KEY-HERE');
+
+if ($result->isValid()) {
+    echo "License is valid. Expires: " . $result->getExpiryDate();
+} else {
+    echo "License is invalid. Reason: " . $result->getErrorMessage();
+}</code></pre>
+                    </div>
+                    
+                    <h5>Bash SDK</h5>
+                    <div class="code-block">
+                        <pre><code>#!/bin/bash
+
+# Source the SDK
+source /path/to/licensing-system.sh
+
+# Initialize the verifier
+init_license_verifier "your_api_key"
+
+# Verify a license
+verify_license "LICENSE-KEY-HERE"
+
+# Check the result
+if [ $? -eq 0 ]; then
+    echo "License is valid"
+    echo "Expires: $(get_license_expiry)"
+else
+    echo "License is invalid"
+    echo "Reason: $(get_license_error)"
+fi</code></pre>
+                    </div>
+                    
+                    <h4>2.2 Direct API Integration</h4>
+                    <p>If you prefer to integrate directly with our API, you can use the following endpoints:</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Verify a license
+POST /api/v1/licenses/verify
+Content-Type: application/json
+
+{
+  "license_key": "LICENSE-KEY-HERE",
+  "product_id": "PRODUCT-ID",
+  "hardware_id": "HARDWARE-ID"  # Optional
+}
+
+# Response
+{
+  "is_valid": true,
+  "expiry_date": "2023-12-31T23:59:59Z",
+  "features": ["feature1", "feature2"],
+  "max_activations": 3,
+  "current_activations": 1
+}</code></pre>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i> When using direct API integration, make sure to implement proper error handling and retry mechanisms for network issues.
+                    </div>
+                </div>
+
+                <!-- Payment Integration -->
+                <div class="doc-section" id="payment">
+                    <h2>3. Payment Integration</h2>
+                    <p>The Licensing System supports multiple payment gateways to process customer payments securely.</p>
+                    
+                    <h3>Supported Payment Gateways</h3>
+                    <ul>
+                        <li><strong>Stripe:</strong> Credit cards, Apple Pay, Google Pay</li>
+                        <li><strong>PayPal:</strong> Credit cards, PayPal balance</li>
+                        <li><strong>Square:</strong> Credit cards, digital wallets</li>
+                        <li><strong>Authorize.net:</strong> Credit cards, e-checks</li>
+                    </ul>
+                    
+                    <h4>3.1 Payment Flow</h4>
+                    <ol>
+                        <li>Customer selects a product and clicks "Purchase"</li>
+                        <li>System redirects to the payment gateway</li>
+                        <li>Customer completes payment</li>
+                        <li>Payment gateway sends a webhook notification</li>
+                        <li>System generates and sends license to customer</li>
+                    </ol>
+                    
+                    <h4>3.2 Setting Up Payment Gateways</h4>
+                    
+                    <h5>Stripe Integration</h5>
+                    <div class="code-block">
+                        <pre><code>// Initialize Stripe
+const stripe = require('stripe')('sk_test_YOUR_SECRET_KEY');
+
+// Create a payment intent
+const paymentIntent = await stripe.paymentIntents.create({
+  amount: 2000, // $20.00
+  currency: 'usd',
+  payment_method_types: ['card'],
+  metadata: {
+    product_id: 'PRODUCT-ID',
+    customer_id: 'CUSTOMER-ID'
+  }
+});
+
+// Return the client secret to the frontend
+return { clientSecret: paymentIntent.client_secret };</code></pre>
+                    </div>
+                    
+                    <h5>PayPal Integration</h5>
+                    <div class="code-block">
+                        <pre><code>// Initialize PayPal
+const paypal = require('@paypal/checkout-server-sdk');
+let environment = new paypal.core.SandboxEnvironment('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET');
+let client = new paypal.core.PayPalHttpClient(environment);
+
+// Create an order
+let request = new paypal.orders.OrdersCreateRequest();
+request.prefer("return=representation");
+request.requestBody({
+  intent: 'CAPTURE',
+  purchase_units: [{
+    amount: {
+      currency_code: 'USD',
+      value: '20.00'
+    },
+    custom_id: 'PRODUCT-ID'
+  }]
+});
+
+// Execute the request
+const order = await client.execute(request);</code></pre>
+                    </div>
+                    
+                    <h4>3.3 Webhook Configuration</h4>
+                    <p>To ensure proper license generation after payment, configure webhooks for your payment gateway:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Webhook endpoint
+app.post('/webhooks/payment', async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_YOUR_WEBHOOK_SECRET');
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // Handle the event
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object;
+    
+    // Generate license
+    const license = await generateLicense({
+      product_id: paymentIntent.metadata.product_id,
+      customer_id: paymentIntent.metadata.customer_id,
+      payment_id: paymentIntent.id
+    });
+    
+    // Send license to customer
+    await sendLicenseEmail(license);
+  }
+
+  res.json({received: true});
+});</code></pre>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i> For security reasons, always verify webhook signatures and use HTTPS for your webhook endpoints.
+                    </div>
+                </div>
+
+                <!-- License Management -->
+                <div class="doc-section" id="license-management">
+                    <h2>4. License Management</h2>
+                    <p>This section covers the various operations you can perform with licenses in the Licensing System.</p>
+                    
+                    <h3>4.1 License Types</h3>
+                    <ul>
+                        <li><strong>Single-User License:</strong> Valid for one user on one device</li>
+                        <li><strong>Multi-User License:</strong> Valid for multiple users (specified limit)</li>
+                        <li><strong>Site License:</strong> Valid for an entire organization or site</li>
+                        <li><strong>Subscription License:</strong> Valid for a specific time period with automatic renewal</li>
+                        <li><strong>Trial License:</strong> Valid for a limited time with restricted features</li>
+                    </ul>
+                    
+                    <h3>4.2 Generating Licenses</h3>
+                    <p>Licenses can be generated manually or automatically after payment:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Generate a license
+const license = await generateLicense({
+  product_id: 'PRODUCT-ID',
+  customer_id: 'CUSTOMER-ID',
+  type: 'single-user',
+  duration: 365, // days
+  features: ['feature1', 'feature2'],
+  max_activations: 1
+});
+
+// License key format: XXXX-XXXX-XXXX-XXXX
+console.log(`Generated license: ${license.key}`);</code></pre>
+                    </div>
+                    
+                    <h3>4.3 Revoking Licenses</h3>
+                    <p>If a license needs to be revoked (e.g., due to violation of terms):</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Revoke a license
+await revokeLicense('LICENSE-KEY-HERE', {
+  reason: 'Terms violation',
+  admin_id: 'ADMIN-ID'
+});
+
+// Check if a license is revoked
+const isRevoked = await isLicenseRevoked('LICENSE-KEY-HERE');</code></pre>
+                    </div>
+                    
+                    <h3>4.4 Reissuing Licenses</h3>
+                    <p>If a customer needs a new license (e.g., after hardware change):</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Reissue a license
+const newLicense = await reissueLicense('LICENSE-KEY-HERE', {
+  reason: 'Hardware change',
+  admin_id: 'ADMIN-ID'
+});
+
+console.log(`New license: ${newLicense.key}`);</code></pre>
+                    </div>
+                    
+                    <h3>4.5 Extending Licenses</h3>
+                    <p>To extend the duration of an existing license:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Extend a license
+await extendLicense('LICENSE-KEY-HERE', {
+  days: 30,
+  admin_id: 'ADMIN-ID'
+});
+
+// Get license expiry
+const expiryDate = await getLicenseExpiry('LICENSE-KEY-HERE');</code></pre>
+                    </div>
+                </div>
+
+                <!-- License Verification -->
+                <div class="doc-section" id="license-verification">
+                    <h2>5. License Verification</h2>
+                    <p>The Licensing System provides multiple methods for verifying licenses to prevent unauthorized use of your software.</p>
+                    
+                    <h3>5.1 Hardware ID Verification</h3>
+                    <p>Hardware ID verification ensures that a license is only used on the authorized device:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Get hardware ID
+const hardwareId = getHardwareId();
+
+// Verify license with hardware ID
+const result = await verifier.verifyLicense('LICENSE-KEY-HERE', {
+  hardware_id: hardwareId
+});
+
+if (result.isValid) {
+  // License is valid for this hardware
+} else {
+  // License is not valid for this hardware
+}</code></pre>
+                    </div>
+                    
+                    <h3>5.2 Domain Verification</h3>
+                    <p>For web applications, you can verify licenses based on the domain:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Get current domain
+const domain = window.location.hostname;
+
+// Verify license with domain
+const result = await verifier.verifyLicense('LICENSE-KEY-HERE', {
+  domain: domain
+});
+
+if (result.isValid) {
+  // License is valid for this domain
+} else {
+  // License is not valid for this domain
+}</code></pre>
+                    </div>
+                    
+                    <h3>5.3 IP Verification</h3>
+                    <p>For server-side applications, you can verify licenses based on the IP address:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Get client IP
+const clientIp = req.ip;
+
+// Verify license with IP
+const result = await verifier.verifyLicense('LICENSE-KEY-HERE', {
+  ip: clientIp
+});
+
+if (result.isValid) {
+  // License is valid for this IP
+} else {
+  // License is not valid for this IP
+}</code></pre>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i> For maximum security, consider implementing multiple verification methods (e.g., hardware ID + domain).
+                    </div>
+                </div>
+
+                <!-- API Reference -->
+                <div class="doc-section" id="api-reference">
+                    <h2>6. API Reference</h2>
+                    <p>This section provides detailed information about the Licensing System API endpoints.</p>
+                    
+                    <h3>6.1 Authentication</h3>
+                    <p>All API requests require authentication using an API key:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Include the API key in the Authorization header
+Authorization: Bearer YOUR_API_KEY</code></pre>
+                    </div>
+                    
+                    <h3>6.2 Endpoints</h3>
+                    
+                    <h4>License Verification</h4>
+                    <div class="code-block">
+                        <pre><code>POST /api/v1/licenses/verify
+Content-Type: application/json
+
+{
+  "license_key": "LICENSE-KEY-HERE",
+  "product_id": "PRODUCT-ID",
+  "hardware_id": "HARDWARE-ID",  # Optional
+  "domain": "example.com",       # Optional
+  "ip": "192.168.1.1"           # Optional
+}
+
+# Response
+{
+  "is_valid": true,
+  "expiry_date": "2023-12-31T23:59:59Z",
+  "features": ["feature1", "feature2"],
+  "max_activations": 3,
+  "current_activations": 1
+}</code></pre>
+                    </div>
+                    
+                    <h4>License Generation</h4>
+                    <div class="code-block">
+                        <pre><code>POST /api/v1/licenses/generate
+Content-Type: application/json
+
+{
+  "product_id": "PRODUCT-ID",
+  "customer_id": "CUSTOMER-ID",
+  "type": "single-user",
+  "duration": 365,
+  "features": ["feature1", "feature2"],
+  "max_activations": 1
+}
+
+# Response
+{
+  "license_key": "XXXX-XXXX-XXXX-XXXX",
+  "created_at": "2023-01-01T00:00:00Z",
+  "expiry_date": "2023-12-31T23:59:59Z"
+}</code></pre>
+                    </div>
+                    
+                    <h4>License Revocation</h4>
+                    <div class="code-block">
+                        <pre><code>POST /api/v1/licenses/revoke
+Content-Type: application/json
+
+{
+  "license_key": "LICENSE-KEY-HERE",
+  "reason": "Terms violation",
+  "admin_id": "ADMIN-ID"
+}
+
+# Response
+{
+  "success": true,
+  "message": "License revoked successfully"
+}</code></pre>
+                    </div>
+                    
+                    <h4>License Extension</h4>
+                    <div class="code-block">
+                        <pre><code>POST /api/v1/licenses/extend
+Content-Type: application/json
+
+{
+  "license_key": "LICENSE-KEY-HERE",
+  "days": 30,
+  "admin_id": "ADMIN-ID"
+}
+
+# Response
+{
+  "success": true,
+  "new_expiry_date": "2024-01-30T23:59:59Z"
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- SDK Documentation -->
+                <div class="doc-section" id="sdk-documentation">
+                    <h2>7. SDK Documentation</h2>
+                    <p>This section provides detailed information about the available SDKs for the Licensing System.</p>
+                    
+                    <h3>7.1 Python SDK</h3>
+                    <p>The Python SDK provides a simple interface for license verification:</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Installation
+pip install licensing-system
+
+# Usage
+from licensing_system import LicenseVerifier
+
+# Initialize the verifier
+verifier = LicenseVerifier(api_key="your_api_key")
+
+# Verify a license
+result = verifier.verify_license(
+    license_key="LICENSE-KEY-HERE",
+    product_id="PRODUCT-ID",
+    hardware_id="HARDWARE-ID"  # Optional
+)
+
+# Check the result
+if result.is_valid:
+    print(f"License is valid. Expires: {result.expiry_date}")
+    print(f"Features: {result.features}")
+else:
+    print(f"License is invalid. Reason: {result.error_message}")</code></pre>
+                    </div>
+                    
+                    <h3>7.2 Node.js SDK</h3>
+                    <p>The Node.js SDK provides a promise-based interface for license verification:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Installation
+npm install licensing-system
+
+// Usage
+const { LicenseVerifier } = require('licensing-system');
+
+// Initialize the verifier
+const verifier = new LicenseVerifier({ apiKey: 'your_api_key' });
+
+// Verify a license
+verifier.verifyLicense('LICENSE-KEY-HERE', {
+  productId: 'PRODUCT-ID',
+  hardwareId: 'HARDWARE-ID'  // Optional
+})
+  .then(result => {
+    if (result.isValid) {
+      console.log(`License is valid. Expires: ${result.expiryDate}`);
+      console.log(`Features: ${result.features}`);
+    } else {
+      console.log(`License is invalid. Reason: ${result.errorMessage}`);
+    }
+  })
+  .catch(error => {
+    console.error('Verification error:', error);
+  });</code></pre>
+                    </div>
+                    
+                    <h3>7.3 PHP SDK</h3>
+                    <p>The PHP SDK provides an object-oriented interface for license verification:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>// Installation
+composer require licensing-system/licensing-system
+
+// Usage
+use LicensingSystem\LicenseVerifier;
+
+// Initialize the verifier
+$verifier = new LicenseVerifier(['api_key' => 'your_api_key']);
+
+// Verify a license
+$result = $verifier->verifyLicense('LICENSE-KEY-HERE', [
+  'product_id' => 'PRODUCT-ID',
+  'hardware_id' => 'HARDWARE-ID'  // Optional
+]);
+
+// Check the result
+if ($result->isValid()) {
+    echo "License is valid. Expires: " . $result->getExpiryDate();
+    echo "Features: " . implode(', ', $result->getFeatures());
+} else {
+    echo "License is invalid. Reason: " . $result->getErrorMessage();
+}</code></pre>
+                    </div>
+                    
+                    <h3>7.4 Bash SDK</h3>
+                    <p>The Bash SDK provides a command-line interface for license verification:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>#!/bin/bash
+
+# Source the SDK
+source /path/to/licensing-system.sh
+
+# Initialize the verifier
+init_license_verifier "your_api_key"
+
+# Verify a license
+verify_license "LICENSE-KEY-HERE" "PRODUCT-ID" "HARDWARE-ID"
+
+# Check the result
+if [ $? -eq 0 ]; then
+    echo "License is valid"
+    echo "Expires: $(get_license_expiry)"
+    echo "Features: $(get_license_features)"
+else
+    echo "License is invalid"
+    echo "Reason: $(get_license_error)"
+fi</code></pre>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="doc-section" id="faq">
+                    <h2>8. FAQ</h2>
+                    <p>This section answers common questions about the Licensing System.</p>
+                    
+                    <h3>8.1 License Management</h3>
+                    
+                    <h4>Q: How do I generate a license for a customer?</h4>
+                    <p>A: You can generate a license through the admin panel or using the API. In the admin panel, go to the Licenses section, click "Add New License", select the product and customer, and click "Generate".</p>
+                    
+                    <h4>Q: Can I revoke a license after it has been issued?</h4>
+                    <p>A: Yes, you can revoke a license at any time through the admin panel or using the API. Go to the Licenses section, find the license, and click "Revoke".</p>
+                    
+                    <h4>Q: How do I extend a license?</h4>
+                    <p>A: You can extend a license through the admin panel or using the API. Go to the Licenses section, find the license, and click "Extend". Enter the number of days to extend and click "Save".</p>
+                    
+                    <h3>8.2 Payment Processing</h3>
+                    
+                    <h4>Q: Which payment gateways are supported?</h4>
+                    <p>A: The Licensing System supports Stripe, PayPal, Square, and Authorize.net. You can configure these in the Payment Settings section.</p>
+                    
+                    <h4>Q: How do I set up automatic license generation after payment?</h4>
+                    <p>A: Configure the webhook for your payment gateway to point to your webhook endpoint. The system will automatically generate a license when it receives a successful payment notification.</p>
+                    
+                    <h4>Q: Can I offer different pricing tiers for the same product?</h4>
+                    <p>A: Yes, you can create different pricing tiers for a product in the Products section. Each tier can have different features and pricing.</p>
+                    
+                    <h3>8.3 License Verification</h3>
+                    
+                    <h4>Q: How secure is the license verification process?</h4>
+                    <p>A: The license verification process is highly secure. It uses hardware ID, domain, or IP verification to ensure that licenses are only used on authorized devices or servers.</p>
+                    
+                    <h4>Q: What happens if a customer tries to use a license on multiple devices?</h4>
+                    <p>A: If a license has a limit on the number of activations, the system will prevent activation on additional devices once the limit is reached. You can configure this limit when generating the license.</p>
+                    
+                    <h4>Q: How do I implement offline license verification?</h4>
+                    <p>A: For offline verification, you can use the SDK to generate a verification token that can be validated without an internet connection. This is useful for applications that need to work offline.</p>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i> If you have additional questions, please contact our support team at support@licensingsystem.com.
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Highlight active section in sidebar
+            const sections = document.querySelectorAll('.doc-section');
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
